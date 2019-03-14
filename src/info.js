@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import {Helmet} from "react-helmet";
 import axios from 'axios';
 import Rater from 'react-rater'
+import { Link } from 'react-router-dom';
 import 'react-rater/lib/react-rater.css'
-
-
 
 class Info extends Component{
     constructor(props){
@@ -21,7 +20,7 @@ componentDidMount() {
         })
         .catch(error =>{
           if (error.response && error.response.status === 404) {
-            this.setState({errorMess: "Wrong"});  
+            this.setState({errorMess: "Wrong Connection!! Try to reload page."});  
           } 
         });
 }
@@ -47,16 +46,13 @@ componentDidMount() {
                 </tr>
                 <tr>
                     <td><b>Director:</b> {data.director}</td>
-                    <td className="rateTd"><b>Rating: </b><Rater total={5} interactive={false} rating={data.rating}/> ({data.rating})</td>
+                    <td className="rateTd"><b>Rating: </b><Rater total={5} interactive={false} rating={data.rating}/> ({data.rating}) <Link to={"/edit/" + data.id}><button className="btn"><span>Edit</span></button></Link></td>
                 </tr>
             </tbody>
         </table>
-        
-
-
+        <div className="errorMess">{this.state.errorMess}</div>
          </>
      )};
-
 }
 
 export default Info;

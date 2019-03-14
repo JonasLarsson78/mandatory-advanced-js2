@@ -12,7 +12,7 @@ import './App.css';
 class Table extends Component{
   constructor(props){
     super(props);
-    this.state = {input: ""}
+    this.state = {input: "", errorMess: ""}
   }
 
   renderMovies = (obj) =>{
@@ -91,7 +91,13 @@ class Main extends Component {
     axios.get("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies")
       .then(response => {
         this.setState({data: response.data });
-      });
+      })
+      .catch(error =>{
+        console.log(error.response)
+        if (error.response && error.response.status === 404){
+            this.setState({errorMess: "Wrong Connection!! Try to reload page."})
+        }
+      })
   }
   
   onDelete(id)  {
@@ -101,8 +107,6 @@ class Main extends Component {
       .then(response => {
         if (response.status === 204) {
           const index = data.findIndex(x => x.id === id);
-
-          console.log(index);
 
           if (index >= 0) {
             const newData = [...data.slice(0, index), ...data.slice(index + 1)];
@@ -114,8 +118,6 @@ class Main extends Component {
       .catch(error => {
         if (error.response && error.response.status === 404) {
           const index = data.findIndex(x => x.id === id);
-
-          console.log(index);
 
           if (index >= 0) {
             const newData = [...data.slice(0, index), ...data.slice(index + 1)];
@@ -133,7 +135,7 @@ class Main extends Component {
      <Helmet>
        <title>Home</title>
      </Helmet>
-    
+     <div className="connectionMess">{this.state.errorMess}</div>
     <Table onDelete={this.onDelete} data={this.state.data}></Table>
    </>
    );

@@ -1,9 +1,10 @@
+import Rater from 'react-rater'
+import 'react-rater/lib/react-rater.css'
 import React, { Component } from 'react';
 import {Helmet} from "react-helmet";
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-import Rater from 'react-rater'
-import 'react-rater/lib/react-rater.css'
+
 
 
 
@@ -14,7 +15,7 @@ class EditMovies extends Component{
   }
   valTitle = (title) =>{
     if (title.length > 39){
-      this.setState({validate: "fel"});
+      this.setState({validate: "Not over 40 character."});
     }
     else{
       this.setState({validate: ""});
@@ -23,7 +24,7 @@ class EditMovies extends Component{
 
   valDirector = (dir) =>{
     if (dir.length > 39){
-      this.setState({validate: "fel"});
+      this.setState({validate: "Not over 40 character."});
     }
     else{
       this.setState({validate: ""});
@@ -31,7 +32,7 @@ class EditMovies extends Component{
   }
   valDescript = (de) =>{
     if (de.length > 299){
-      this.setState({validate: "fel"});
+      this.setState({validate: "Not over 300 character."});
     }
     else{
       this.setState({validate: ""});
@@ -75,7 +76,7 @@ class EditMovies extends Component{
     })
     .catch(error =>{
       if (error.response && error.response.status === 400) {
-      this.setState({error: "Wrong"})
+      this.setState({error: "Must fill all fields.."})
       }
     });
    }
@@ -89,7 +90,7 @@ class EditMovies extends Component{
       })
       .catch(error =>{
         if (error.response && error.response.status === 404) {
-          this.setState({error: "fel"})
+          this.setState({error: "Wrong Connection!!"})
         } 
       });
   }
@@ -97,11 +98,9 @@ class EditMovies extends Component{
   render(){
     
     
-      if(this.state.error === "fel"){
-        return <p>Fel Skickat</p>
+      if(this.state.error === "Wrong Connection!!"){
+        return <p className="errorMess">Wrong Connection!!</p>
       }
-
-
       if (this.state.data === null){
           return <p>Loading...</p>
       }
@@ -118,11 +117,11 @@ class EditMovies extends Component{
           
           <div className="mainForm">
           <label className="inputLabel">Titel</label><br/>
-          <input className="inputText" type="text" value={data.title} onChange={this.onChangeTitel}/><br/><br/>
+          <input maxLength="40" className="inputText" type="text" value={data.title} onChange={this.onChangeTitel}/><br/><br/>
           <label className="inputLabel">Description</label><br/>
-          <textarea className="inputTextA" value={data.description} onChange={this.onChangeDescription}/><br/>
+          <textarea maxLength="300" className="inputTextA" value={data.description} onChange={this.onChangeDescription}/><br/>
           <label className="inputLabel">Director</label><br/>
-          <input className="inputText" type="text" value={data.director} onChange={this.onChangeDirector}/><br/><br/>
+          <input maxLength="40" className="inputText" type="text" value={data.director} onChange={this.onChangeDirector}/><br/><br/>
           <label className="inputLabel">Rating</label><br/>
           <input className="rating" type="range" min="0" max="5" step="0.1" value={rating} onChange={this.onChangeRating}/><br/>
           <span className="ratingNum"><Rater total={5} interactive={false} rating={Number(rating)}/> ({rating})</span><br/><br/>

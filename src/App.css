@@ -1,3 +1,4 @@
+/* $react-rater-active: yellow !default; */
 body{
   background-image: url(./back.jpg);
 }
@@ -116,8 +117,8 @@ color: white;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0%);
-  font-size: 25px;
-  color: white;
+  font-size: 20px;
+  color: red;
   }
 .rating{
   position: relative;
@@ -168,7 +169,31 @@ color: white;
 }
 .infoTabel .rateTd{
   text-align: right;
-  padding-right: 50px;
+  padding-right: 10px;
+}
+.connectionMess{
+  position: absolute;
+  top: 340px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  color: white;
+  font-size: 25px;
+}
+.is-active-half::before{
+  color: #4CAF50 !important;
+  -webkit-text-stroke: 1px #252c24;
+}
+.is-active{
+  color: #4CAF50 !important;
+  -webkit-text-stroke: 1px #252c24;
+}
+.react-rater-star{
+  color: #808080;
+  -webkit-text-stroke: 1px #252c24;
+
 }
 
+/* react-rater-star is-disabled is-active-half */
 
+
+/* react-rater-star is-disabled is-active */

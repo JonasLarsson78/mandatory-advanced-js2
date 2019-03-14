@@ -13,11 +13,11 @@ class AddMovies extends Component{
     redirect: false,
     error: "",
     validate: "",
-  };
+   };
   }
   valTitle = (title) =>{
     if (title.length > 39){
-      this.setState({validate: "fel"});
+      this.setState({validate: "Not over 40 character."});
     }
     else{
       this.setState({validate: ""});
@@ -26,15 +26,17 @@ class AddMovies extends Component{
 
   valDirector = (dir) =>{
     if (dir.length > 39){
-      this.setState({validate: "fel"});
+      this.setState({validate: "Not over 40 character."});
     }
+
     else{
       this.setState({validate: ""});
     }
   }
+
   valDescript = (de) =>{
     if (de.length > 299){
-      this.setState({validate: "fel"});
+      this.setState({validate: "Not over 300 character."});
     }
     else{
       this.setState({validate: ""});
@@ -48,6 +50,7 @@ class AddMovies extends Component{
         title: e.target.value,
     },error: "" });   
    }
+
    onChangeDescription = (e) => {
     this.valDescript(e.target.value)
     this.setState({data: {
@@ -64,6 +67,7 @@ class AddMovies extends Component{
         
     },error: "" }); 
    }
+
    onChangeRating = (e) => {
     this.setState({data: {
         ...this.state.data,
@@ -71,6 +75,7 @@ class AddMovies extends Component{
         
     },error: "" }); 
    }
+
    onClick = () => {
      let data = this.state.data
      
@@ -79,7 +84,7 @@ class AddMovies extends Component{
       this.setState({redirect: true})
     })
     .catch((err) => {
-      this.setState({error: "Wrong"});
+      this.setState({error: "Must fill all fields.."});
     })
   }
   
