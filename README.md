@@ -1,3 +1,10 @@
+Jonas L
+--------------------------------------------------------------------------------------------------------
+
+AvJs Lab 2 - Movie API:
+
+
+--------------------------------------------------------------------------------------------------------
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
