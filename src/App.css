@@ -1,0 +1,174 @@
+body{
+  background-image: url(./back.jpg);
+}
+.rederTable{
+  position: relative;
+  top: 30px;
+  left: 50%;
+  width: 800px;
+  margin: 8px;
+  border-collapse: collapse;
+  transform: translate(-50%, 0%);
+  background: white;
+  margin-bottom: 40px;
+}
+.rederTable th, td{
+  text-align: left;
+  padding: 5px;
+}
+.main{
+  position: relative;
+  top: 10px;
+  
+}
+.rederTable td{
+  cursor: pointer;
+  
+}
+
+.rederTable tr:nth-child(even){background-color: #f2f2f2;}
+
+.rederTable tr:hover {background-color: #ddd;}
+
+.rederTable th {
+  background-color: #4CAF50;
+  color: white;
+}
+.btn{
+  position: relative;
+  height: 30px;
+  width: 70px;
+  margin-left: 5px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+.btn:hover{
+  background-color: rgb(56, 131, 59);
+}
+.mainBtn{
+  position: relative;
+  text-align: center;
+  top: 20px;
+  color: white;
+}
+a{
+  color:black;
+  text-decoration: none;
+}
+a:hover{
+  color: rgb(14, 121, 14);
+}
+.mainS{
+  position: relative;
+  height: 40px;
+  width: 200px;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  outline: none;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 20px;
+  padding: 3px;
+}
+.infoText{
+  color:white;
+}
+.errorMess{
+color: white;
+}
+.mainForm{
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  
+  transform: translate(-50%, 0%);
+}
+.inputLabel{
+  font-size: 20px;
+  color: white;
+}
+.inputText{
+  width: 600px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid black;
+  outline: none;
+  padding: 3px;
+  font-size: 20px;
+}
+.inputTextA{
+  width: 600px;
+  height: 100px;
+  border-radius: 10px;
+  border: 1px solid black;
+  outline: none;
+  padding: 3px;
+  font-size: 20px;
+  resize: none;
+}
+.errorMess{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  font-size: 25px;
+  color: white;
+  }
+.rating{
+  position: relative;
+  width: 600px;
+} 
+.ratingNum{
+  position: absolute;
+  margin-top: 10px;
+  text-align: center;
+  width: 160px;
+  height: 25px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  font-size: 25px;
+  color: black;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  padding-bottom: 20px;
+}
+.infoTabel{
+  position: relative;
+  top: 89px;
+  left: 50%;
+  width: 800px;
+  margin: 8px;
+  border-collapse: collapse;
+  transform: translate(-50%, 0%);
+  background: white;
+  table-layout:fixed;
+}
+.infoTabel th, td{
+  text-align: left;
+  padding: 10px;
+  word-wrap:break-word;
+  
+}
+.infoTabel tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.infoTabel th {
+  background-color: #4CAF50;
+  color: white;
+}
+.infoTabel .decTd {
+  height: 120px;
+  vertical-align: top;
+}
+.infoTabel .rateTd{
+  text-align: right;
+  padding-right: 50px;
+}
+
+
