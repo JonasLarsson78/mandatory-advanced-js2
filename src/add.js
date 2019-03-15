@@ -109,7 +109,7 @@ class AddMovies extends Component{
           <input placeholder="Type in director's name." maxLength="40" className="inputText" type="text" onChange={this.onChangeDirector}/><br/><br/>
           <label className="inputLabel">Rating:</label><br/>
           <input className="rating" type="range" min="0" max="5" step="0.1" value={rating} onChange={this.onChangeRating}/><br/>
-          <span className="ratingNum"><Rater total={5} interactive={false} rating={rating}/> ({rating})</span><br/><br/>
+          <span className="ratingNum"><Rater total={5} interactive={false} rating={Number(rating)}/> ({rating})</span><br/><br/>
           <button className="btn" onClick={this.onClick}>Save</button><br/>
           <div className="errorMess">{this.state.error}</div>
           <div className="errorMess">{this.state.validate}</div>

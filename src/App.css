@@ -58,11 +58,11 @@ body{
   color: white;
 }
 a{
-  color:black;
+  color: #0c860c;
   text-decoration: none;
 }
 a:hover{
-  color: rgb(14, 121, 14);
+  color: #007700;
 }
 .mainS{
   position: relative;

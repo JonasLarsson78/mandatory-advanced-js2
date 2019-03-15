@@ -4,6 +4,13 @@ import axios from 'axios';
 import Rater from 'react-rater'
 import { Link } from 'react-router-dom';
 import 'react-rater/lib/react-rater.css'
+const Linkify = require('linkifyjs/react');
+
+function convertUrl(str){
+    let options = {/* … */};
+    return <Linkify tagName="span" options={options}>{str}</Linkify>;
+  }
+
 
 class Info extends Component{
     constructor(props){
@@ -42,11 +49,11 @@ componentDidMount() {
             </thead>    
             <tbody>
                 <tr>
-                    <td className="decTd" colSpan="2">{data.description}</td>
+                    <td className="decTd" colSpan="2">{convertUrl(data.description)}</td>
                 </tr>
                 <tr>
                     <td><b>Director:</b> {data.director}</td>
-                    <td className="rateTd"><b>Rating: </b><Rater total={5} interactive={false} rating={data.rating}/> ({data.rating}) <Link to={"/edit/" + data.id}><button className="btn"><span>Edit</span></button></Link></td>
+                    <td className="rateTd"><b>Rating: </b><Rater total={5} interactive={false} rating={Number(data.rating)}/> ({data.rating}) <Link to={"/edit/" + data.id}><button className="btn"><span>Edit</span></button></Link></td>
                 </tr>
             </tbody>
         </table>
