@@ -49,7 +49,7 @@ componentDidMount() {
             </thead>    
             <tbody>
                 <tr>
-                    <td className="decTd" colSpan="2">{convertUrl(data.description)}</td>
+                    <td className="decTd" colSpan="2"><b>Description:</b><br/>{convertUrl(data.description)}</td>
                 </tr>
                 <tr>
                     <td><b>Director:</b> {data.director}</td>

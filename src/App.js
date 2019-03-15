@@ -9,18 +9,46 @@ import Rater from 'react-rater'
 import 'react-rater/lib/react-rater.css'
 import './App.css';
 
+
+
 class Table extends Component{
   constructor(props){
     super(props);
-    this.state = {input: "", errorMess: ""}
+    this.state = {input: "", errorMess: "", scrollY: 0}
+  }
+  componentDidMount(){
+    window.addEventListener('scroll', this.scroll);
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('scroll', this.scroll);
+  }
+  
+  scroll = () =>{
+    
+    let y = window.pageYOffset
+    let newY = parseFloat(y.toFixed(0));
+    this.setState({scrollY: newY})
   }
 
   renderMovies = (obj) =>{
     let rating = parseFloat(obj.rating).toFixed(1);
+    
+    let newDescription= obj.description.slice(0, 125);
+    //console.log(newStr)
    
     return (
       <tr key={obj.id}>
-        <td><Link to={"/info/" + obj.id}>{obj.title}</Link></td>
+        <td className="tooltip">
+        <Link to={"/info/" + obj.id}>{obj.title}</Link>        
+        <span className="tooltiptext" style={{ marginTop: `${this.state.scrollY / 2 + 130}px` }}>
+          <div><b>Title:</b></div>
+          <div>{obj.title}</div><br/>
+          <div><b>Short Description:</b></div>
+          <span>{newDescription}...</span>
+        </span>
+        
+        </td>
         <td>{obj.director}</td>
         <td><center><Rater total={5} interactive={false} rating={Number(rating)}/> ({rating})</center></td>
         <td><center><Link to={"/edit/" + obj.id}><button className="btn"><span>Edit</span></button></Link></center></td>
@@ -56,7 +84,7 @@ class Table extends Component{
     
     
     return (
-     <div className="main">
+    <div className="main">
      <input className="mainS" onChange={this.onChange} placeholder="Search.." type="text"/>
      <table className="rederTable" border="1">
        <thead>
@@ -84,20 +112,29 @@ class Main extends Component {
 
     this.onDelete = this.onDelete.bind(this);
   }
+getAxiosData = () =>{
 
+  axios.get("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies")
+  .then(response => {
+    this.setState({data: response.data });
+  })
+  .catch(error =>{
+    console.log(error.response)
+    if (error.response && error.response.status === 404){
+        this.setState({errorMess: "Wrong Connection!! Try to reload page."})
+    }
+  });
+}
   
 
   componentDidMount() {
-    axios.get("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies")
-      .then(response => {
-        this.setState({data: response.data });
-      })
-      .catch(error =>{
-        console.log(error.response)
-        if (error.response && error.response.status === 404){
-            this.setState({errorMess: "Wrong Connection!! Try to reload page."})
-        }
-      })
+    this.getAxiosData();
+    this.intervall = setInterval(() => {
+      this.getAxiosData();
+    }, 15000); 
+  }
+  componentWillUnmount(){
+    clearInterval(this.intervall);
   }
   
   onDelete(id)  {
@@ -125,8 +162,7 @@ class Main extends Component {
             this.setState({ data: newData });
           }
         } 
-
-      })
+      });
   }
 
   render() {

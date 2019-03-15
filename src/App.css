@@ -2,11 +2,12 @@
 body{
   background-image: url(./back.jpg);
 }
+/* Style Movie Table */
 .rederTable{
   position: relative;
   top: 30px;
   left: 50%;
-  width: 800px;
+  min-width: 900px;
   margin: 8px;
   border-collapse: collapse;
   transform: translate(-50%, 0%);
@@ -17,20 +18,16 @@ body{
   text-align: left;
   padding: 5px;
 }
+.rederTable td{
+  cursor: pointer;
+}
 .main{
   position: relative;
   top: 10px;
-  
 }
-.rederTable td{
-  cursor: pointer;
-  
+.rederTable tr:nth-child(even){
+  background-color: #f2f2f2;
 }
-
-.rederTable tr:nth-child(even){background-color: #f2f2f2;}
-
-.rederTable tr:hover {background-color: #ddd;}
-
 .rederTable th {
   background-color: #4CAF50;
   color: white;
@@ -57,13 +54,16 @@ body{
   top: 20px;
   color: white;
 }
+/* Style Links */
 a{
-  color: #0c860c;
+  color: #11d011;
   text-decoration: none;
+  cursor: pointer;
 }
 a:hover{
   color: #007700;
 }
+/* -----  End ---- */
 .mainS{
   position: relative;
   height: 40px;
@@ -179,6 +179,7 @@ color: white;
   color: white;
   font-size: 25px;
 }
+/* Style Rating Stars */
 .is-active-half::before{
   color: #4CAF50 !important;
   -webkit-text-stroke: 1px #252c24;
@@ -190,10 +191,37 @@ color: white;
 .react-rater-star{
   color: #808080;
   -webkit-text-stroke: 1px #252c24;
+}
+/* 
+.is-disabled{
 
+} 
+.is-active-half{
+
+} */
+/* ------- End --------- */
+
+ .tooltiptext {
+  visibility: hidden;
+  width: 450px;
+  height: 160px;
+  background-color: black;
+  color: #fff;
+  text-align: left;
+  vertical-align: top;
+  border-radius: 6px;
+  padding: 10px;
+  opacity: 0.9;
+  border: 3px solid #11d011;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 0%;
+  left: 50%;
+  transform: translate(-50%, -0%);
 }
 
-/* react-rater-star is-disabled is-active-half */
-
-
-/* react-rater-star is-disabled is-active */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

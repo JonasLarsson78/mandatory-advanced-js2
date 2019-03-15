@@ -5,9 +5,6 @@ import {Helmet} from "react-helmet";
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-
-
-
 class EditMovies extends Component{
   constructor(props){
     super(props);
