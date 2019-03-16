@@ -36,7 +36,6 @@ class Table extends Component{
     let rating = parseFloat(obj.rating).toFixed(1);
     
     let newDescription= obj.description.slice(0, 125);
-    //console.log(newStr)
    
     return (
       <tr key={obj.id}>
