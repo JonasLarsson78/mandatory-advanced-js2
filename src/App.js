@@ -6,8 +6,9 @@ import EditMovies from './edit.js';
 import Info from './info.js';
 import axios from 'axios';
 import Rater from 'react-rater'
-import 'react-rater/lib/react-rater.css'
 import './App.css';
+import 'react-rater/lib/react-rater.css'
+
 
 
 
@@ -39,18 +40,18 @@ class Table extends Component{
    
     return (
       <tr key={obj.id}>
-        <td className="tooltip">
-        <Link to={"/info/" + obj.id}>{obj.title}</Link>        
+        <td >
+        <Link className="tooltip" to={"/info/" + obj.id}>{obj.title}       
         <span className="tooltiptext" style={{ marginTop: `${this.state.scrollY / 2 + 130}px` }}>
           <div><b>Title:</b></div>
           <div>{obj.title}</div><br/>
           <div><b>Short Description:</b></div>
           <span>{newDescription}...</span>
         </span>
-        
+        </Link> 
         </td>
         <td>{obj.director}</td>
-        <td><center><Rater total={5} interactive={false} rating={Number(rating)}/> ({rating})</center></td>
+        <td className="rateSize"><center><Rater total={5} interactive={false} rating={Number(rating)}/> <span className="rateNum">({rating})</span></center></td>
         <td><center><Link to={"/edit/" + obj.id}><button className="btn"><span>Edit</span></button></Link></center></td>
         <td><center><button className="btn" data-id={obj.id} onClick={this.delMovies}>Del</button></center></td>
       </tr>
@@ -89,11 +90,11 @@ class Table extends Component{
      <table className="rederTable" border="1">
        <thead>
           <tr>
-            <th>Titel</th>
-            <th>Director</th>
-            <th>Rating</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>Titel:</th>
+            <th>Director:</th>
+            <th>Rating:</th>
+            <th>Edit:</th>
+            <th>Delete:</th>
           </tr>
        </thead>
        <tbody>
@@ -116,10 +117,10 @@ getAxiosData = () =>{
 
   axios.get("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies")
   .then(response => {
+    console.log(response)
     this.setState({data: response.data });
   })
   .catch(error =>{
-    console.log(error.response)
     if (error.response && error.response.status === 404){
         this.setState({errorMess: "Wrong Connection!! Try to reload page."})
     }
@@ -131,7 +132,7 @@ getAxiosData = () =>{
     this.getAxiosData();
     this.intervall = setInterval(() => {
       this.getAxiosData();
-    }, 15000); 
+    }, 60000); 
   }
   componentWillUnmount(){
     clearInterval(this.intervall);

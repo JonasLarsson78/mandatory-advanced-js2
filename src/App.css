@@ -181,16 +181,16 @@ color: white;
 }
 /* Style Rating Stars */
 .is-active-half::before{
-  color: #4CAF50 !important;
-  -webkit-text-stroke: 1px #252c24;
+  color: #ffb400 !important;
+  -webkit-text-stroke: 1px #000000;
 }
 .is-active{
-  color: #4CAF50 !important;
-  -webkit-text-stroke: 1px #252c24;
+  color: #ffb400 !important;
+  -webkit-text-stroke: 1px #000000;
 }
 .react-rater-star{
-  color: #808080;
-  -webkit-text-stroke: 1px #252c24;
+  color: #494949;
+  -webkit-text-stroke: 1px #000000;
 }
 /* 
 .is-disabled{
@@ -204,8 +204,8 @@ color: white;
  .tooltiptext {
   visibility: hidden;
   width: 450px;
-  height: 160px;
-  background-color: black;
+  height: 175px;
+  background: black;
   color: #fff;
   text-align: left;
   vertical-align: top;
@@ -224,4 +224,13 @@ color: white;
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+.rateSize{
+  position: relative;
+  font-size: 20px;
+}
+.rateNum{
+  position: relative;
+  top: -1px;
+  font-size: 16px;
 }
