@@ -5,7 +5,6 @@ import axios from 'axios';
 import Rater from 'react-rater'
 import 'react-rater/lib/react-rater.css'
 
-
 class AddMovies extends Component{
   constructor(props){
     super(props);
