@@ -36,7 +36,6 @@ body{
 .rederTable th {
   background-color: #4CAF50;
   color: white;
-  
 }
 .btn{
   position: relative;
@@ -163,7 +162,6 @@ color: white;
   text-align: left;
   padding: 10px;
   word-wrap:break-word;
-  
 }
 .infoTabel tr:nth-child(even) {
   background-color: #f2f2f2;
