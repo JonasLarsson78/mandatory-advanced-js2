@@ -39,7 +39,7 @@ class Table extends Component{
    
     return (
       <tr key={obj.id}>
-        <td >
+        <td className="tooltipPar">
         <Link className="tooltip" to={"/info/" + obj.id}>{obj.title}       
         <span className="tooltiptext" style={{ marginTop: `${this.state.scrollY / 2 + 130}px` }}>
           <div><b>Title:</b></div>
