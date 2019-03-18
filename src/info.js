@@ -20,18 +20,27 @@ class Info extends Component{
 
 componentDidMount() {
     let id = this.props.match.params.id;
+    this.source = axios.CancelToken.source();
 
-    axios.get("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + id)
+    axios.get("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + id,
+    {headers: {"Content-Type": "application/json"}, cancelToken: this.source.token})
         .then(response => {
         this.setState({data: response.data });
         })
         .catch(error =>{
+        if (axios.isCancel(error)){
+            return;
+            }
           if (error.response && error.response.status === 404) {
             this.setState({errorMess: "Wrong Connection!! Try to reload page."});  
           } 
         });
 }
-
+    componentWillMount(){
+        if (this.source){
+        this.source.cancel();
+        }
+    }
  render(){
   let data = this.state.data;   
     

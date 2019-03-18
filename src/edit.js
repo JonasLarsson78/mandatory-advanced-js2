@@ -68,11 +68,16 @@ class EditMovies extends Component{
    }
    onClick = () => {
      this.setState({disabel: true});
-    axios.put("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + this.state.data.id, this.state.data) 
+     this.source = axios.CancelToken.source();
+    axios.put("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + this.state.data.id, this.state.data,
+    {headers: {"Content-Type": "application/json"}, cancelToken: this.source.token}) 
     .then(response => {
       this.setState({redirect: true})
     })
     .catch(error =>{
+      if (axios.isCancel(error)){
+        return;
+      }
       if (error.response && error.response.status === 400) {
       this.setState({error: "Must fill all fields.."})
       }
@@ -82,16 +87,24 @@ class EditMovies extends Component{
 
   componentDidMount() {
     let id = this.props.match.params.id;
-
+    this.source = axios.CancelToken.source();
     axios.get("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + id)
       .then(response => {
         this.setState({data: response.data });
       })
       .catch(error =>{
+        if (axios.isCancel(error)){
+          return;
+        }
         if (error.response && error.response.status === 404) {
           this.setState({error: "Wrong Connection!!"})
         } 
       });
+  }
+  componentWillMount(){
+    if (this.source){
+      this.source.cancel();
+    }
   }
 
   render(){
@@ -101,7 +114,7 @@ class EditMovies extends Component{
         return <p className="errorMess">Wrong Connection!!</p>
       }
       if (this.state.data === null){
-          return <p>Loading...</p>
+          return <p>Loading page...</p>
       }
       if (this.state.redirect === true){
         return <Redirect to="/"/>

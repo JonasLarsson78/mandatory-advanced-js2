@@ -83,9 +83,6 @@ class AddMovies extends Component{
     axios.post("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/", data,
     {headers: {"Content-Type": "application/json"}, cancelToken: this.source.token})
     .then((res) => {
-
-      
-
       this.setState({redirect: true});
     })
     .catch((err) => {
@@ -101,7 +98,6 @@ class AddMovies extends Component{
       this.source.cancel();
     }
   }
-  
 
   render(){
     let rating = parseFloat(this.state.data.rating).toFixed(1);
@@ -128,9 +124,6 @@ class AddMovies extends Component{
           <div className="errorMess">{this.state.error}</div>
           <div className="errorMess">{this.state.validate}</div>
           </div>
-
-
-
           </>
       );
   }

@@ -9,9 +9,6 @@ import Rater from 'react-rater'
 import './App.css';
 import 'react-rater/lib/react-rater.css'
 
-
-
-
 class Table extends Component{
   constructor(props){
     super(props);
@@ -113,13 +110,17 @@ class Main extends Component {
     this.onDelete = this.onDelete.bind(this);
   }
 getAxiosData = () =>{
-
-  axios.get("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies")
+  this.source = axios.CancelToken.source();
+  axios.get("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies",
+  {headers: {"Content-Type": "application/json"}, cancelToken: this.source.token})
   .then(response => {
     console.log(response)
     this.setState({data: response.data });
   })
   .catch(error =>{
+    if (axios.isCancel(error)){
+      return;
+      }
     if (error.response && error.response.status === 404){
         this.setState({errorMess: "Wrong Connection!! Try to reload page."})
     }
@@ -134,13 +135,17 @@ getAxiosData = () =>{
     }, 60000); 
   }
   componentWillUnmount(){
+    if (this.source){
+      this.source.cancel();
+      }
     clearInterval(this.intervall);
   }
   
   onDelete(id)  {
     const { data } = this.state;
-
-    axios.delete("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + id)
+    this.source = axios.CancelToken.source();
+    axios.delete("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + id,
+    {headers: {"Content-Type": "application/json"}, cancelToken: this.source.token})
       .then(response => {
         if (response.status === 204) {
           const index = data.findIndex(x => x.id === id);
@@ -153,12 +158,14 @@ getAxiosData = () =>{
         } 
       })
       .catch(error => {
+        if (axios.isCancel(error)){
+          return;
+          }
         if (error.response && error.response.status === 404) {
           const index = data.findIndex(x => x.id === id);
 
           if (index >= 0) {
             const newData = [...data.slice(0, index), ...data.slice(index + 1)];
-
             this.setState({ data: newData });
           }
         } 
@@ -177,16 +184,13 @@ getAxiosData = () =>{
    );
   }
 }
-class App extends Component{
-  
 
+class App extends Component{
 
   render() {
     return(
      <Router>
      <>
-     
-     
      <div className="mainBtn">
      <h1>AvJS Lab 2 - Movie API</h1>
       <Link to="/">
