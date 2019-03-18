@@ -82,10 +82,6 @@ class Table extends Component{
     return (
     <div className="main">
      <input className="mainS" onChange={this.onChange} placeholder="Search.." type="text"/>
-     
-     
-     
-     
      <table className="rederTable" border="1">
        <thead>
           <tr>
@@ -101,9 +97,7 @@ class Table extends Component{
        </tbody>
        <tfoot>
          <tr>
-           <td style={{borderRadius: '0 0 0 10px', backgroundColor: "#4CAF50"}}/>
-           <td colSpan="3" style={{backgroundColor: "#4CAF50"}}/>
-           <td style={{borderRadius: '0 0 10px 0', backgroundColor: "#4CAF50"}}/>
+           <td colSpan="5" style={{borderRadius: '0 0 10px 10px', backgroundColor: "#4CAF50"}}/>
          </tr>
        </tfoot>
      </table> 
@@ -117,7 +111,6 @@ class Main extends Component {
     super(props);
     this.state = {data: []};
 
-    this.onDelete = this.onDelete.bind(this);
   }
 getAxiosData = () =>{
   this.source = axios.CancelToken.source();
@@ -150,7 +143,7 @@ getAxiosData = () =>{
     clearInterval(this.intervall);
   }
   
-  onDelete(id)  {
+  onDelete = (id) =>  {
     const { data } = this.state;
     this.source = axios.CancelToken.source();
     axios.delete("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + id,

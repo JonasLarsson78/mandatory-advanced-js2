@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
 body{
   background-image: url(./back.jpg);
-  font-family: 'Roboto', sans-serif;
 }
+
 /* Style Movie Table */
 
 .rederTable{
@@ -16,12 +15,11 @@ body{
   background: white;
   margin-bottom: 40px;
   border-radius: 10px;
-  border: 0px solid black;
 }
 .rederTable th, td{
   text-align: left;
   padding: 5px;
-  border: 0px solid black;
+  border: 1px solid black;
 }
 .rederTable td{
   cursor: pointer;
@@ -36,6 +34,7 @@ body{
 .rederTable th {
   background-color: #4CAF50;
   color: white;
+  padding-left: 10px;
 }
 .btn{
   position: relative;
@@ -135,7 +134,7 @@ color: white;
   position: absolute;
   margin-top: 10px;
   text-align: center;
-  width: 160px;
+  width: 170px;
   height: 25px;
   left: 50%;
   transform: translate(-50%, 0%);
@@ -157,6 +156,7 @@ color: white;
   transform: translate(-50%, 0%);
   background: white;
   table-layout:fixed;
+  border-radius: 10px;
 }
 .infoTabel th, td{
   text-align: left;
@@ -207,7 +207,6 @@ color: white;
 
 } */
 /* ------- End --------- */
-
 
  .tooltiptext {
   visibility: hidden;

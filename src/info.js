@@ -53,7 +53,12 @@ componentDidMount() {
         <table className="infoTabel">
             <thead>
                 <tr>
-                    <th colSpan="2"><h2>Title: {data.title}</h2></th>
+                    <th style={{borderRadius: '10px 10px 0 0'}} colSpan="2">
+                        <h2 style={{webkitTextStroke: "1px #000000"}}>{data.title}</h2>
+                        <a rel="noopener noreferrer" title="Search for movie on IMDB" target="_blank" href={"https://www.imdb.com/search/title?title=" + data.title + "&view=simple"}>
+                            <img alt="imdb" src={require("./iconfinder_imdb.png")}/>
+                        </a>
+                    </th>
                 </tr>
             </thead>    
             <tbody>
@@ -65,6 +70,11 @@ componentDidMount() {
                     <td className="rateTd"><b>Rating: </b><Rater total={5} interactive={false} rating={Number(data.rating)}/> ({data.rating}) <Link to={"/edit/" + data.id}><button className="btn"><span>Edit</span></button></Link></td>
                 </tr>
             </tbody>
+            <tfoot>
+         <tr>
+           <td colSpan="2" style={{borderRadius: '0 0 10px 10px', backgroundColor: "#4CAF50"}}/>
+         </tr>
+       </tfoot>
         </table>
         <div className="errorMess">{this.state.errorMess}</div>
          </>

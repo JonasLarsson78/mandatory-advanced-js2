@@ -85,11 +85,13 @@ class AddMovies extends Component{
     .then((res) => {
       this.setState({redirect: true});
     })
-    .catch((err) => {
-      if (axios.isCancel(err)){
+    .catch((error) => {
+      if (axios.isCancel(error)){
         return;
       }
+      if (error.response && error.response.status === 400) {
       this.setState({error: "Must fill all fields.."});
+      }
       this.setState({disabled: false});
     })
   }
@@ -101,6 +103,10 @@ class AddMovies extends Component{
 
   render(){
     let rating = parseFloat(this.state.data.rating).toFixed(1);
+    
+    if (this.state.data === null){
+        return <p>Loading page...</p>
+    }
     if (this.state.redirect === true){
       return <Redirect to="/"/>
     }
