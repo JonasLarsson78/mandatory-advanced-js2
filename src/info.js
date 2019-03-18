@@ -54,7 +54,7 @@ componentDidMount() {
             <thead>
                 <tr>
                     <th style={{borderRadius: '10px 10px 0 0'}} colSpan="2">
-                        <h2 style={{webkitTextStroke: "1px #000000"}}>{data.title}</h2>
+                        <h2 className="mainH2">{data.title}</h2>
                         <a rel="noopener noreferrer" title="Search for movie on IMDB" target="_blank" href={"https://www.imdb.com/search/title?title=" + data.title + "&view=simple"}>
                             <img alt="imdb" src={require("./iconfinder_imdb.png")}/>
                         </a>
