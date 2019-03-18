@@ -81,7 +81,7 @@ class AddMovies extends Component{
      let data = this.state.data
      this.source = axios.CancelToken.source();
     axios.post("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/", data,
-    {headers: {"Content-Type": "application/json"}, cancelToken: this.source.token})
+    {cancelToken: this.source.token})
     .then((res) => {
       this.setState({redirect: true});
     })

@@ -36,7 +36,7 @@ class Table extends Component{
    
     return (
       <tr key={obj.id}>
-        <td className="tooltipPar">
+        <td>
         <Link className="tooltip" to={"/info/" + obj.id}>{obj.title}       
         <span className="tooltiptext" style={{ marginTop: `${this.state.scrollY / 2 + 130}px` }}>
           <div><b>Title:</b></div>
@@ -56,7 +56,6 @@ class Table extends Component{
   onChange = (e) =>{
     this.setState({input: e.target.value})
     }
-
 
   delMovies = (e) =>{
       let id = e.target.dataset.id;
@@ -83,19 +82,30 @@ class Table extends Component{
     return (
     <div className="main">
      <input className="mainS" onChange={this.onChange} placeholder="Search.." type="text"/>
+     
+     
+     
+     
      <table className="rederTable" border="1">
        <thead>
           <tr>
-            <th>Titel:</th>
+            <th style={{borderRadius: '10px 0 0 0'}}>Title:</th>
             <th>Director:</th>
             <th>Rating:</th>
             <th>Edit:</th>
-            <th>Delete:</th>
+            <th style={{borderRadius: '0 10px 0 0'}}>Delete:</th>
           </tr>
        </thead>
        <tbody>
          {newData}
        </tbody>
+       <tfoot>
+         <tr>
+           <td style={{borderRadius: '0 0 0 10px', backgroundColor: "#4CAF50"}}/>
+           <td colSpan="3" style={{backgroundColor: "#4CAF50"}}/>
+           <td style={{borderRadius: '0 0 10px 0', backgroundColor: "#4CAF50"}}/>
+         </tr>
+       </tfoot>
      </table> 
      </div>
     );
@@ -112,9 +122,9 @@ class Main extends Component {
 getAxiosData = () =>{
   this.source = axios.CancelToken.source();
   axios.get("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies",
-  {headers: {"Content-Type": "application/json"}, cancelToken: this.source.token})
+  {cancelToken: this.source.token})
   .then(response => {
-    console.log(response)
+    //console.log(response)
     this.setState({data: response.data });
   })
   .catch(error =>{
@@ -126,7 +136,6 @@ getAxiosData = () =>{
     }
   });
 }
-  
 
   componentDidMount() {
     this.getAxiosData();
@@ -145,14 +154,12 @@ getAxiosData = () =>{
     const { data } = this.state;
     this.source = axios.CancelToken.source();
     axios.delete("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + id,
-    {headers: {"Content-Type": "application/json"}, cancelToken: this.source.token})
+    {cancelToken: this.source.token})
       .then(response => {
         if (response.status === 204) {
           const index = data.findIndex(x => x.id === id);
-
           if (index >= 0) {
             const newData = [...data.slice(0, index), ...data.slice(index + 1)];
-
             this.setState({ data: newData });
           }
         } 
@@ -192,7 +199,7 @@ class App extends Component{
      <Router>
      <>
      <div className="mainBtn">
-     <h1>AvJS Lab 2 - Movie API</h1>
+     <h1 className="mainH1">AvJS Lab 2 - Movie API</h1>
       <Link to="/">
         <button className="btn">
           <span>Home</span>

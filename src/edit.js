@@ -70,7 +70,7 @@ class EditMovies extends Component{
      this.setState({disabel: true});
      this.source = axios.CancelToken.source();
     axios.put("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + this.state.data.id, this.state.data,
-    {headers: {"Content-Type": "application/json"}, cancelToken: this.source.token}) 
+    {cancelToken: this.source.token}) 
     .then(response => {
       this.setState({redirect: true})
     })
@@ -88,7 +88,8 @@ class EditMovies extends Component{
   componentDidMount() {
     let id = this.props.match.params.id;
     this.source = axios.CancelToken.source();
-    axios.get("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + id)
+    axios.get("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + id,
+    {cancelToken: this.source.token})
       .then(response => {
         this.setState({data: response.data });
       })

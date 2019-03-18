@@ -23,7 +23,7 @@ componentDidMount() {
     this.source = axios.CancelToken.source();
 
     axios.get("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + id,
-    {headers: {"Content-Type": "application/json"}, cancelToken: this.source.token})
+    {cancelToken: this.source.token})
         .then(response => {
         this.setState({data: response.data });
         })
