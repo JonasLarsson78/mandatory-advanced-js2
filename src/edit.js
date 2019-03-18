@@ -8,7 +8,7 @@ import axios from 'axios';
 class EditMovies extends Component{
   constructor(props){
     super(props);
-    this.state = {data: null, redirect: false, error: "", validate: "", rating: 0};
+    this.state = {data: null, redirect: false, error: "", validate: "", rating: 0, disabel: false};
   }
   valTitle = (title) =>{
     if (title.length > 39){
@@ -67,6 +67,7 @@ class EditMovies extends Component{
     } }); 
    }
    onClick = () => {
+     this.setState({disabel: true});
     axios.put("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + this.state.data.id, this.state.data) 
     .then(response => {
       this.setState({redirect: true})
@@ -75,6 +76,7 @@ class EditMovies extends Component{
       if (error.response && error.response.status === 400) {
       this.setState({error: "Must fill all fields.."})
       }
+      this.setState({disabel: false});
     });
    }
 
@@ -122,7 +124,7 @@ class EditMovies extends Component{
           <label className="inputLabel">Rating</label><br/>
           <input className="rating" type="range" min="0" max="5" step="0.1" value={rating} onChange={this.onChangeRating}/><br/>
           <span className="ratingNum"><Rater total={5} interactive={false} rating={Number(rating)}/> ({rating})</span><br/><br/>
-          <button className="btn" onClick={this.onClick}>Update</button>
+          <button className="btn" onClick={this.onClick} disabled={this.state.disabel}>Update</button>
           <div className="errorMess">{this.state.error}</div>
           <div className="errorMess">{this.state.validate}</div>
           </div>

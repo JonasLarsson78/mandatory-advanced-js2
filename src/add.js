@@ -12,6 +12,7 @@ class AddMovies extends Component{
     redirect: false,
     error: "",
     validate: "",
+    disabled: false,
    };
   }
   valTitle = (title) =>{
@@ -76,15 +77,29 @@ class AddMovies extends Component{
    }
 
    onClick = () => {
+     this.setState({disabled: true});
      let data = this.state.data
-     
-    axios.post("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/", data)
+     this.source = axios.CancelToken.source();
+    axios.post("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/", data,
+    {headers: {"Content-Type": "application/json"}, cancelToken: this.source.token})
     .then((res) => {
-      this.setState({redirect: true})
+
+      
+
+      this.setState({redirect: true});
     })
     .catch((err) => {
+      if (axios.isCancel(err)){
+        return;
+      }
       this.setState({error: "Must fill all fields.."});
+      this.setState({disabled: false});
     })
+  }
+  componentWillMount(){
+    if (this.source){
+      this.source.cancel();
+    }
   }
   
 
@@ -109,7 +124,7 @@ class AddMovies extends Component{
           <label className="inputLabel">Rating:</label>
           <input className="rating" type="range" min="0" max="5" step="0.1" value={rating} onChange={this.onChangeRating}/><br/>
           <span className="ratingNum"><Rater total={5} interactive={false} rating={Number(rating)}/> ({rating})</span><br/><br/>
-          <button className="btn" onClick={this.onClick}>Save</button><br/>
+          <button className="btn" onClick={this.onClick} disabled={this.state.disabled}>Save</button><br/>
           <div className="errorMess">{this.state.error}</div>
           <div className="errorMess">{this.state.validate}</div>
           </div>
