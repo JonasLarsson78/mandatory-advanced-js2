@@ -53,9 +53,9 @@ componentDidMount() {
         <table className="infoTabel">
             <thead>
                 <tr>
-                    <th style={{borderRadius: '10px 10px 0 0'}} colSpan="2">
+                    <th className="infoBack" style={{borderRadius: '10px 10px 0 0'}} colSpan="2">
                         <h2 className="mainH2">{data.title}</h2>
-                        <a rel="noopener noreferrer" title="Search for movie on IMDB" target="_blank" href={"https://www.imdb.com/search/title?title=" + data.title + "&view=simple"}>
+                        <a rel="noopener noreferrer" title="Search for the movie on IMDb" target="_blank" href={"https://www.imdb.com/search/title?title=" + data.title + "&view=simple"}>
                             <img alt="imdb" src={require("./iconfinder_imdb.png")}/>
                         </a>
                     </th>
@@ -67,16 +67,16 @@ componentDidMount() {
                 </tr>
                 <tr>
                     <td><b>Director:</b> {data.director}</td>
-                    <td className="rateTd"><b>Rating: </b><Rater total={5} interactive={false} rating={Number(data.rating)}/> ({data.rating}) <Link to={"/edit/" + data.id}><button className="btn"><span>Edit</span></button></Link></td>
+                    <td className="rateTd"><b>Rating: </b><Rater total={5} interactive={false} rating={Number(data.rating)}/> ({data.rating}) <Link to={"/edit/" + data.id}><button style={{position: "absolute", right: "10px", bottom: "27px"}} className="btn"><span>Edit</span></button></Link></td>
                 </tr>
             </tbody>
             <tfoot>
          <tr>
-           <td colSpan="2" style={{borderRadius: '0 0 10px 10px', backgroundColor: "#4CAF50"}}/>
+           <td className="infoBack" colSpan="2" style={{borderRadius: '0 0 10px 10px', backgroundColor: "#4CAF50"}}/>
          </tr>
        </tfoot>
         </table>
-        <div className="errorMess">{this.state.errorMess}</div>
+        <div className="errorMess errorPosInfo">{this.state.errorMess}</div>
          </>
      )};
 }

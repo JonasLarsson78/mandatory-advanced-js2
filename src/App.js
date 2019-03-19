@@ -118,6 +118,7 @@ getAxiosData = () =>{
   {cancelToken: this.source.token})
   .then(response => {
     //console.log(response)
+    
     this.setState({data: response.data });
   })
   .catch(error =>{
@@ -132,15 +133,11 @@ getAxiosData = () =>{
 
   componentDidMount() {
     this.getAxiosData();
-    this.intervall = setInterval(() => {
-      this.getAxiosData();
-    }, 60000); 
   }
   componentWillUnmount(){
     if (this.source){
       this.source.cancel();
       }
-    clearInterval(this.intervall);
   }
   
   onDelete = (id) =>  {

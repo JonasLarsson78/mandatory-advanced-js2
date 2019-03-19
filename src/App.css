@@ -175,7 +175,7 @@ color: white;
   vertical-align: top;
 }
 .infoTabel .rateTd{
-  text-align: right;
+  text-align: left;
   padding-right: 10px;
 }
 .connectionMess{
@@ -329,4 +329,12 @@ input[type=range]:focus::-ms-fill-lower {
 }
 input[type=range]:focus::-ms-fill-upper {
   background: #FFFFFF;
+}
+.infoBack{
+  background-image: url(./pattern_weel.png);
+}
+.errorPosInfo{
+  position: absolute;
+  
+  top: 200px;
 }
