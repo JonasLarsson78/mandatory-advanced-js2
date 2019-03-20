@@ -10,6 +10,7 @@ class EditMovies extends Component{
     super(props);
     this.state = {data: null, redirect: false, error: "", validate: "", rating: 0, disabel: false};
   }
+
   valTitle = (title) =>{
     if (title.length > 39){
       this.setState({validate: "Not over 40 character."});
@@ -27,6 +28,7 @@ class EditMovies extends Component{
       this.setState({validate: ""});
     }
   }
+
   valDescript = (de) =>{
     if (de.length > 299){
       this.setState({validate: "Not over 300 character."});
@@ -43,6 +45,7 @@ class EditMovies extends Component{
        title: e.target.value,
    } });   
   }
+
   onChangeDescription = (e) => {
     this.valDescript(e.target.value)
     this.setState({data: {
@@ -51,6 +54,7 @@ class EditMovies extends Component{
         
     } }); 
    }
+
    onChangeDirector = (e) => {
     this.valDirector(e.target.value)
     this.setState({data: {
@@ -59,6 +63,7 @@ class EditMovies extends Component{
         
     } }); 
    }
+
    onChangeRating = (e) => {
     this.setState({data: {
         ...this.state.data,
@@ -66,11 +71,12 @@ class EditMovies extends Component{
         
     } }); 
    }
+
    onClick = () => {
      this.setState({disabel: true});
      this.source = axios.CancelToken.source();
-    axios.put("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + this.state.data.id, this.state.data,
-    {cancelToken: this.source.token}) 
+    axios.put("http://ec2-13-53-132-57.eu-north-1.compute.amazonaws.com:3000/movies/" + this.state.data.id,
+    this.state.data, {cancelToken: this.source.token}) 
     .then(response => {
       this.setState({redirect: true})
     })
@@ -102,49 +108,50 @@ class EditMovies extends Component{
         } 
       });
   }
-  componentWillMount(){
-    if (this.source){
-      this.source.cancel();
-    }
-  }
 
-  render(){
-    
-    
-      if(this.state.error === "Wrong Connection!!"){
-        return <p className="errorMess">Wrong Connection!!</p>
+    componentWillMount(){
+      if (this.source){
+        this.source.cancel();
       }
-      if (this.state.data === null){
-          return <p>Loading page...</p>
-      }
-      if (this.state.redirect === true){
-        return <Redirect to="/"/>
-      }
-      let data = this.state.data
-      let rating = parseFloat(data.rating).toFixed(1);
-      return(
-          <>
-          <Helmet>
-            <title>Edit Movie</title>
-          </Helmet>
-          
-          <div className="mainForm">
-          <label className="inputLabel">Titel</label><br/>
-          <input maxLength="40" className="inputText" type="text" value={data.title} onChange={this.onChangeTitel}/><br/><br/>
-          <label className="inputLabel">Description</label><br/>
-          <textarea maxLength="300" className="inputTextA" value={data.description} onChange={this.onChangeDescription}/><br/>
-          <label className="inputLabel">Director</label><br/>
-          <input maxLength="40" className="inputText" type="text" value={data.director} onChange={this.onChangeDirector}/><br/><br/>
-          <label className="inputLabel">Rating</label><br/>
-          <input className="rating" type="range" min="0" max="5" step="0.1" value={rating} onChange={this.onChangeRating}/><br/>
-          <span className="ratingNum"><Rater total={5} interactive={false} rating={Number(rating)}/> ({rating})</span><br/><br/>
-          <button className="btn" onClick={this.onClick} disabled={this.state.disabel}>Update</button>
-          <div className="errorMess">{this.state.error}</div>
-          <div className="errorMess">{this.state.validate}</div>
-          </div>
-          </>
-      );
-  }
+    }
+
+    render(){
+      
+      
+        if(this.state.error === "Wrong Connection!!"){
+          return <p className="errorMess">Wrong Connection!!</p>
+        }
+        if (this.state.data === null){
+            return <p>Loading page...</p>
+        }
+        if (this.state.redirect === true){
+          return <Redirect to="/"/>
+        }
+        let data = this.state.data
+        let rating = parseFloat(data.rating).toFixed(1);
+        return(
+            <>
+            <Helmet>
+              <title>Edit Movie</title>
+            </Helmet>
+            
+            <div className="mainForm">
+            <label className="inputLabel">Titel</label><br/>
+            <input maxLength="40" className="inputText" type="text" value={data.title} onChange={this.onChangeTitel}/><br/><br/>
+            <label className="inputLabel">Description</label><br/>
+            <textarea maxLength="300" className="inputTextA" value={data.description} onChange={this.onChangeDescription}/><br/>
+            <label className="inputLabel">Director</label><br/>
+            <input maxLength="40" className="inputText" type="text" value={data.director} onChange={this.onChangeDirector}/><br/><br/>
+            <label className="inputLabel">Rating</label><br/>
+            <input className="rating" type="range" min="0" max="5" step="0.1" value={rating} onChange={this.onChangeRating}/><br/>
+            <span className="ratingNum"><Rater total={5} interactive={false} rating={Number(rating)}/> ({rating})</span><br/><br/>
+            <button className="btn" onClick={this.onClick} disabled={this.state.disabel}>Update</button>
+            <div className="errorMess">{this.state.error}</div>
+            <div className="errorMess">{this.state.validate}</div>
+            </div>
+            </>
+        );
+    }
 }
 
 export default EditMovies;

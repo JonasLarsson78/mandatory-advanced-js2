@@ -15,6 +15,7 @@ class AddMovies extends Component{
     disabled: false,
    };
   }
+
   valTitle = (title) =>{
     if (title.length > 39){
       this.setState({validate: "Not over 40 character."});
@@ -28,7 +29,6 @@ class AddMovies extends Component{
     if (dir.length > 39){
       this.setState({validate: "Not over 40 character."});
     }
-
     else{
       this.setState({validate: ""});
     }
@@ -59,6 +59,7 @@ class AddMovies extends Component{
         
     },error: "" }); 
    }
+
    onChangeDirector = (e) => {
     this.valDirector(e.target.value)
     this.setState({data: {
@@ -95,44 +96,45 @@ class AddMovies extends Component{
       this.setState({disabled: false});
     })
   }
-  componentWillMount(){
-    if (this.source){
-      this.source.cancel();
-    }
-  }
 
-  render(){
-    let rating = parseFloat(this.state.data.rating).toFixed(1);
-    
-    if (this.state.data === null){
-        return <p>Loading page...</p>
+    componentWillMount(){
+      if (this.source){
+        this.source.cancel();
+      }
     }
-    if (this.state.redirect === true){
-      return <Redirect to="/"/>
+
+    render(){
+      let rating = parseFloat(this.state.data.rating).toFixed(1);
+      
+      if (this.state.data === null){
+          return <p>Loading page...</p>
+      }
+      if (this.state.redirect === true){
+        return <Redirect to="/"/>
+      }
+        return(
+            <>
+            <Helmet>
+              <title>Add Movie</title>
+            </Helmet>
+            
+            <div className="mainForm">
+            <label className="inputLabel">Titel:</label><br/>
+            <input placeholder="Type in movie titel." maxLength="40" className="inputText" type="text" onChange={this.onChangeTitel}/><br/><br/>
+            <label className="inputLabel">Description:</label><br/>
+            <textarea placeholder="Type in movie description." maxLength="300" className="inputTextA" onChange={this.onChangeDescription}/><br/>
+            <label className="inputLabel">Director:</label><br/>
+            <input placeholder="Type in director's name." maxLength="40" className="inputText" type="text" onChange={this.onChangeDirector}/><br/><br/>
+            <label className="inputLabel">Rating:</label>
+            <input className="rating" type="range" min="0" max="5" step="0.1" value={rating} onChange={this.onChangeRating}/><br/>
+            <span className="ratingNum"><Rater total={5} interactive={false} rating={Number(rating)}/> ({rating})</span><br/><br/>
+            <button className="btn" onClick={this.onClick} disabled={this.state.disabled}>Save</button><br/>
+            <div className="errorMess">{this.state.error}</div>
+            <div className="errorMess">{this.state.validate}</div>
+            </div>
+            </>
+        );
     }
-      return(
-          <>
-          <Helmet>
-            <title>Add Movie</title>
-          </Helmet>
-          
-          <div className="mainForm">
-          <label className="inputLabel">Titel:</label><br/>
-          <input placeholder="Type in movie titel." maxLength="40" className="inputText" type="text" onChange={this.onChangeTitel}/><br/><br/>
-          <label className="inputLabel">Description:</label><br/>
-          <textarea placeholder="Type in movie description." maxLength="300" className="inputTextA" onChange={this.onChangeDescription}/><br/>
-          <label className="inputLabel">Director:</label><br/>
-          <input placeholder="Type in director's name." maxLength="40" className="inputText" type="text" onChange={this.onChangeDirector}/><br/><br/>
-          <label className="inputLabel">Rating:</label>
-          <input className="rating" type="range" min="0" max="5" step="0.1" value={rating} onChange={this.onChangeRating}/><br/>
-          <span className="ratingNum"><Rater total={5} interactive={false} rating={Number(rating)}/> ({rating})</span><br/><br/>
-          <button className="btn" onClick={this.onClick} disabled={this.state.disabled}>Save</button><br/>
-          <div className="errorMess">{this.state.error}</div>
-          <div className="errorMess">{this.state.validate}</div>
-          </div>
-          </>
-      );
-  }
 }
 
 export default AddMovies;

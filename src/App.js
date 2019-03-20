@@ -23,7 +23,6 @@ class Table extends Component{
   }
   
   scroll = () =>{
-    
     let y = window.pageYOffset
     let newY = parseFloat(y.toFixed(0));
     this.setState({scrollY: newY})
@@ -47,12 +46,18 @@ class Table extends Component{
         </Link> 
         </td>
         <td>{obj.director}</td>
-        <td className="rateSize"><center><Rater total={5} interactive={false} rating={Number(rating)}/> <span className="rateNum">({rating})</span></center></td>
+        <td className="rateSize">
+          <center>
+            <Rater total={5} interactive={false} rating={Number(rating)}/>
+            <span className="rateNum">({rating})</span>
+          </center>
+         </td>
         <td><center><Link to={"/edit/" + obj.id}><button className="btn"><span>Edit</span></button></Link></center></td>
         <td><center><button className="btn" data-id={obj.id} onClick={this.delMovies}>Del</button></center></td>
       </tr>
     );
   }
+
   onChange = (e) =>{
     this.setState({input: e.target.value})
     }
